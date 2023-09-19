@@ -51,7 +51,7 @@ while strtinfo==strtinfo: ##Simple workaround to create a never ending loop
             print("Not exiting...") ## tell user 'not exiting'
             continue ## continue loop
     if cmd=="help": ## Define 'help' command
-        print("Version: 0.2 beta \nYour Platform: Windows\nRepository Version: 0.2 \nPackages: 2 \nCommands: \nsmpkg -l: lists all packages \nsmpkg -f: finds packages with entered characters \nsmpkg -i: downloads and installs packages \nsmpkg -u: check for updates and install if available") ## print help output
+        print("Version: 0.3 Beta \nYour Platform: Windows\nRepository Version: 0.3 \nPackages: 31 \nCommands: \nsmpkg -l: lists all packages \nsmpkg -f: finds packages with entered characters \nsmpkg -i: downloads and installs packages \nsmpkg -u: check for updates and install if available") ## print help output
     if cmd=="smpkg -f":
         pkg=input("Find a package: ")
         with open(r'repository\main.smrepo', 'r') as fp:
