@@ -11,7 +11,7 @@ from subprocess import Popen, PIPE
 from tqdm import tqdm
 pkg_repo= open("repository\main.smrepo").read().splitlines()
 ## Define StartUp Text
-strtinfo=colored("\033[1msmpkg early beta \nVersion: 0.2 beta \nType help to get started\033", 'green')
+strtinfo=colored("\033[1msmpkg early beta \nVersion: 0.3 beta \nType help to get started\033", 'green')
 print(strtinfo)
 
 ## Manage tmp folder
@@ -22,8 +22,8 @@ except OSError as error: ##Skip if tmp already exists
 
 ## Updates (Still in progress!)
 #print("Checking for updates...")
-#currentVersion = "0.2"
-#currentRelease = "2"
+#currentVersion = "0.3"
+#currentRelease = "3"
 #
 #datafile = requests.get('', stream=True)
 #localfile='tmp\smpkg-updates.txt'
@@ -34,7 +34,7 @@ except OSError as error: ##Skip if tmp already exists
 #latestrelease=updaterfile.readline(3)
 #latestBranch=updaterfile.readline(4)
 #if currentRelease==latestrelease:
-#    print('Smpkg is on latest release 0.2 beta')
+#    print('Smpkg is on latest release 0.3 beta')
 #else:
 #    print('A new release', latestVersion, latestBranch, 'is available, run "smpkg -u" to update to the latest release.')
 #    print(latestVersion, latestBranch, latestrelease)
