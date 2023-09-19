@@ -5,14 +5,13 @@ smpkg is a script entirely written in python which provides a GNU/Linux Package 
 ## Why Smpkg?
 Smpkg directly fetches downloads for the desired app present in the repository eliminating searching for apps on the web.
 
-### Build Status
-Latest:
-Smpkg Version: 0.1
-Package Branch: Development
-Repository Version: Null (Not added yet)
-Support: Windows only (Android not added yet)
-Requirements: Python 3/3+
-Python Dependencies: requests, shutil, os, sys, termcolor, subprocess
+### Latest Build Status
+- Smpkg Version: 0.4
+- Branch: Beta
+- Repository Version: 0.3
+- Support: Currently Windows only (Android not added yet)
+- Requirements: Python 3/3+
+- Python Dependencies: requests, shutil, os, sys, termcolor, subprocess , tqdm
 
 ### Further Details
 License: GNU GPL 3.0+
