@@ -27,4 +27,3 @@ Smpkg directly fetches downloads for the desired app present in the repository e
 ### Further Details
 - License: GNU GPL 3.0+
 - Category: Free and Open Source Software
--
