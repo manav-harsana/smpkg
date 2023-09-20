@@ -15,7 +15,7 @@ Smpkg directly fetches downloads for the desired app present in the repository e
 |Handle updates for all apps in repository| 0%•••••••••• not started yet|
 |Android Support | ×2•••••••• just started|
 | Separate FOSS and "Non-Free" repositories | ××××5••••• midway|
-|Logo |××××××7••• somewhat there|
+|Logo |×××××××××10 complete|
 
 ### Build Status
 |Smpkg Version| 0.3|
