@@ -1,4 +1,6 @@
 # Smpkg, Duel Platform Package Manager
+![Image was supposed to be here](https://github.com/manav-harsana/smpkg/blob/main/config/images/IMG_20230920_123407.png?raw=true)
+
 ## What Is Smpkg?
 smpkg is a script entirely written in python which provides a GNU/Linux Package manager like functionality to Android and Windows. Current builds are in very early stages and only support Windows packages with no repository yet.
 
