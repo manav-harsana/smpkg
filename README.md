@@ -1,5 +1,5 @@
 # Smpkg, Duel Platform Package Manager
-![Image was supposed to be here](https://github.com/manav-harsana/smpkg/blob/main/config/images/IMG_20230920_123407.png?raw=true)
+![Image was supposed to be here](https://github.com/manav-harsana/smpkg/blob/main/config/images/banner.png?raw=true)
 
 ## What Is Smpkg?
 smpkg is a script entirely written in python which provides a GNU/Linux Package manager like functionality to Android and Windows. Current builds are in very early stages and only support Windows packages with no repository yet.
@@ -27,7 +27,12 @@ Smpkg directly fetches downloads for the desired app present in the repository e
 |Python Dependencies| requests, shutil, os, sys, termcolor, subprocess|
 
 ### Screenshots
-![Image was supposed to be here](https://github.com/manav-harsana/smpkg/blob/main/config/images/IMG_20230920_115429.png?raw=true)
+![Image was supposed to be here](https://github.com/manav-harsana/smpkg/blob/main/config/images/icon.png?raw=true)
+![Image was supposed to be here](https://github.com/manav-harsana/smpkg/blob/main/config/images/screenshot1.png?raw=true)
+![Image was supposed to be here](https://github.com/manav-harsana/smpkg/blob/main/config/images/screenshot2.png?raw=true)
+![Image was supposed to be here](https://github.com/manav-harsana/smpkg/blob/main/config/images/screenshot3.png?raw=true)
+![Image was supposed to be here](https://github.com/manav-harsana/smpkg/blob/main/config/images/screenshot4.png?raw=true)
+![Image was supposed to be here](https://github.com/manav-harsana/smpkg/blob/main/config/images/screenshot5.png?raw=true)
 
 ### Further Details
 - License: GNU GPL 3.0+
