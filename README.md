@@ -7,6 +7,25 @@ smpkg is a script entirely written in python which provides a GNU/Linux Package 
 ## Why Smpkg?
 Smpkg directly fetches downloads for the desired app present in the repository eliminating searching for apps on the web.
 
+## Installation
+The package is portable but a few dependencies are required:
+- python 3.10+
+- pip
+- shutil
+- requests
+- subprocess
+- termcolor
+- tqdm
+
+In Terminal Run:
+```
+pip install shutil requests tqdm termcolor
+git clone https://github.com/manav-harsana/smpkg.git
+# or download zip file manually
+cd smpkg
+python .\smpkg.py
+```
+
 ## Todo (WIP)
 
 | Features | Progress|
