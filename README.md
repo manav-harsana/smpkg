@@ -26,6 +26,9 @@ Smpkg directly fetches downloads for the desired app present in the repository e
 |Requirements| Python 3/3+|
 |Python Dependencies| requests, shutil, os, sys, termcolor, subprocess|
 
+### Screenshots
+![Image was supposed to be here](https://github.com/manav-harsana/smpkg/blob/main/config/images/IMG_20230920_115429.png?raw=true)
+
 ### Further Details
 - License: GNU GPL 3.0+
 - Category: Free and Open Source Software
