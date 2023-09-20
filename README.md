@@ -7,7 +7,7 @@ smpkg is a script entirely written in python which provides a GNU/Linux Package 
 ## Why Smpkg?
 Smpkg directly fetches downloads for the desired app present in the repository eliminating searching for apps on the web.
 
-### Todo (WIP)
+## Todo (WIP)
 
 | Features | Progress|
 |-------------|------------|
@@ -17,7 +17,7 @@ Smpkg directly fetches downloads for the desired app present in the repository e
 | Separate FOSS and "Non-Free" repositories | ××××5••••• midway|
 |Logo |×××××××××10 complete|
 
-### Build Status
+## Build Status
 |Smpkg Version| 0.3|
 |-------------------|-----|
 |Package Branch|Beta|
@@ -26,7 +26,7 @@ Smpkg directly fetches downloads for the desired app present in the repository e
 |Requirements| Python 3/3+|
 |Python Dependencies| requests, shutil, os, sys, termcolor, subprocess|
 
-### Screenshots
+## Screenshots
 ![Image was supposed to be here](https://github.com/manav-harsana/smpkg/blob/main/config/images/icon.png?raw=true)
 ![Image was supposed to be here](https://github.com/manav-harsana/smpkg/blob/main/config/images/screenshot1.png?raw=true)
 ![Image was supposed to be here](https://github.com/manav-harsana/smpkg/blob/main/config/images/screenshot2.png?raw=true)
