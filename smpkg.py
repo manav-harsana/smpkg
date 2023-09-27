@@ -4,14 +4,14 @@
 # This package is licensed Under the GNU General Public License 3.0+ (GNU GPL 3.0+)
 
 ## Import Required dependencies
-import os, sys, shutil, requests, subprocess, urllib.request
+import os, sys, shutil, requests, subprocess
 from termcolor import colored, cprint
 from urllib.request import urlretrieve
 from subprocess import Popen, PIPE
 from tqdm import tqdm
 pkg_repo= open("repository\main.smrepo").read().splitlines()
 ## Define StartUp Text
-strtinfo=colored("\033[1msmpkg early beta \nVersion: 0.3 beta \nType help to get started\033", 'green')
+strtinfo=colored("\033[1msmpkg early beta \nVersion: 0.3.1 stable \nType help to get started\033", 'green')
 print(strtinfo)
 
 ## Manage tmp folder
@@ -51,7 +51,7 @@ while strtinfo==strtinfo: ##Simple workaround to create a never ending loop
             print("Not exiting...") ## tell user 'not exiting'
             continue ## continue loop
     if cmd=="help": ## Define 'help' command
-        print("Version: 0.3 Beta \nYour Platform: Windows\nRepository Version: 0.3 \nPackages: 31 \nCommands: \nsmpkg -l: lists all packages \nsmpkg -f: finds packages with entered characters \nsmpkg -i: downloads and installs packages \nsmpkg -u: check for updates and install if available") ## print help output
+        print("Version: 0.3.1 Stable \nYour Platform: Windows\nRepository Version: 0.4 \nPackages: 50 \nCommands: \nsmpkg -l: lists all packages \nsmpkg -f: finds packages with entered characters \nsmpkg -i: downloads and installs packages \nsmpkg -u: check for updates and install if available") ## print help output
     if cmd=="smpkg -f":
         pkg=input("Find a package: ")
         with open(r'repository\main.smrepo', 'r') as fp:
@@ -67,6 +67,7 @@ while strtinfo==strtinfo: ##Simple workaround to create a never ending loop
             cnfrminstl=input("Do you want to proceed to download and install? [Yes/No] ")
             if cnfrminstl=='Yes' or cnfrminstl=='yes' or cnfrminstl=='y' or cnfrminstl=='Y': ## is yes?
                 print("Obtaining info...")
+                print("Latest Build as of September 26, 2023")
                 with open(r'repository\main.smrepo', 'r') as fp:
                     for l_no, line in enumerate(fp):
                         if pkg in line:
@@ -102,3 +103,6 @@ while strtinfo==strtinfo: ##Simple workaround to create a never ending loop
     if cmd=='smpkg -l':
         print("Listing all packages in repository: ")
         print(pkg_repo)
+# WIP: Non free repository option
+#    if cmd=='repo -e Non-Free':
+#        answer=input("Are you sure you want to enable Non-Free repository? while this will add more software to the collection these software packages will not have source codes available [Yes/No]: ")
