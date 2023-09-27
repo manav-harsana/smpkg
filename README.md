@@ -2,7 +2,7 @@
 ![Image was supposed to be here](https://github.com/manav-harsana/smpkg/blob/main/config/images/banner.png?raw=true)
 
 ## What Is Smpkg?
-smpkg is a script entirely written in python which provides a GNU/Linux Package manager like functionality to Android and Windows. Current builds are in very early stages and only support Windows packages with no repository yet.
+smpkg is a script entirely written in python which provides a GNU/Linux Package manager like functionality to Android and Windows. Current builds are in early stages and only support Windows packages.
 
 ## Why Smpkg?
 Smpkg directly fetches downloads for the desired app present in the repository eliminating searching for apps on the web.
@@ -33,7 +33,7 @@ python .\smpkg.py
 |Automatically fetch repository and smpkg update and notify user |  ××××××7••• |
 |Handle updates for all apps in repository| ××3••••••• |
 |Android Support | ×××××6•••• |
-| Separate FOSS and "Non-Free" repositories | ××××5••••• |
+|Separate FOSS and "Non-Free" repositories | ××××5•••••|
 
 ## Latest Build Status
 |Smpkg Version| 0.3.1 |
