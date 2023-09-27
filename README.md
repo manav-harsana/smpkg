@@ -30,17 +30,16 @@ python .\smpkg.py
 
 | Features | Progress|
 |-------------|------------|
-|Automatically fetch repository and smpkg update and notify user |  ××××××××8•• nearly there|
-|Handle updates for all apps in repository| 0%•••••••••• not started yet|
-|Android Support | ×2•••••••• just started|
-| Separate FOSS and "Non-Free" repositories | ××××5••••• midway|
-|Logo |×××××××××10 complete|
+|Automatically fetch repository and smpkg update and notify user |  ××××××7••• |
+|Handle updates for all apps in repository| ××3••••••• |
+|Android Support | ×××××6•••• |
+| Separate FOSS and "Non-Free" repositories | ××××5••••• |
 
-## Build Status
-|Smpkg Version| 0.3|
+## Latest Build Status
+|Smpkg Version| 0.3.1 |
 |-------------------|-----|
-|Package Branch|Beta|
-|Repository Version|0.3|
+|Package Branch|Stable|
+|Repository Version|0.4|
 |Support|Windows currently (Android not added yet)|
 |Requirements| Python 3/3+|
 |Python Dependencies| requests, shutil, os, sys, termcolor, subprocess|
