@@ -44,7 +44,7 @@ python .\smpkg.py
 |Requirements| Python 3/3+|
 |Python Dependencies| requests, shutil, os, sys, termcolor, subprocess|
 
-## Screenshots
+## Screenshots (v0.3 beta)
 ![Image was supposed to be here](https://github.com/manav-harsana/smpkg/blob/main/config/images/icon.png?raw=true)
 ![Image was supposed to be here](https://github.com/manav-harsana/smpkg/blob/main/config/images/screenshot1.png?raw=true)
 ![Image was supposed to be here](https://github.com/manav-harsana/smpkg/blob/main/config/images/screenshot2.png?raw=true)
