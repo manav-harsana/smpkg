@@ -26,7 +26,7 @@ cd smpkg
 python .\smpkg.py
 ```
 
-## Todo (WIP)
+## To-do (WIP)
 
 | Features | Progress|
 |-------------|------------|
