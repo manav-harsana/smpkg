@@ -31,9 +31,10 @@ python .\smpkg.py
 | Features | Progress|
 |-------------|------------|
 |Automatically fetch repository and smpkg update and notify user |  ××××××7••• |
-|Handle updates for all apps in repository| ××3••••••• |
 |Android Support | ×××××6•••• |
-| Separate FOSS and "Non-Free" repositories | ××××5••••• |
+|Separate FOSS and "Non-Free" repositories | ××××5••••• |
+|Handle updates for all apps in repository| ××3••••••• |
+|GitHub.io Webpage|×2••••••••|
 
 ## Latest Build Status
 |Smpkg Version| 0.3.1 |
