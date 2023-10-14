@@ -1,6 +1,20 @@
 # Smpkg, Duel Platform Package Manager
 ![Image was supposed to be here](https://github.com/manav-harsana/smpkg/blob/main/config/images/banner.png?raw=true)
 
+# Future of this project (Upcoming plans)
+This Project will move to a new repository under a new name very soon! I have been working behind the doors and am making some massive changes by the time I release the next version the script will be much more advanced and better with multiple features, but this will take longer the "weekly" releases. Next release is supposed to be big and possibly the first official 1.0 release.
+Some Features Confirmed to be added are:
+- Auto Fetch Updates for script
+- Option to enable/disable FOSS/Non-FOSS Repositories
+- Smaller commands
+- Custom scripts for each app (This means that now even more different kinds of packages can be published)
+- A New name!
+- A New logo!
+- Better Optimised codebase
+- Many Many more apps/packages in the repositories
+- Android Support
+- And more!
+
 ## What Is Smpkg?
 smpkg is a script entirely written in python which provides a GNU/Linux Package manager like functionality to Android and Windows. Current builds are in very early stages and only support Windows packages.
 
@@ -30,11 +44,11 @@ python .\smpkg.py
 
 | Features | Progress|
 |-------------|------------|
-|Automatically fetch repository and smpkg update and notify user |  ××××××7••• |
-|Android Support | ×××××6•••• |
-|Separate FOSS and "Non-Free" repositories | ××××5••••• |
-|Handle updates for all apps in repository| ××3••••••• |
-|GitHub.io Webpage|×2••••••••|
+|Automatically fetch repository and smpkg update and notify user |  ×××××××××10 |
+|Android Support | ×××××××××10 |
+|Separate FOSS and "Non-Free" repositories | ××××××××10 |
+|Handle updates for all apps in repository| ××××××7••• |
+|GitHub.io Webpage|×××××6••••|
 
 ## Latest Build Status
 |Smpkg Version| 0.3.1 |
