@@ -2,7 +2,7 @@
 ![Image was supposed to be here](https://github.com/manav-harsana/smpkg/blob/main/config/images/banner.png?raw=true)
 
 # Future of this project (2023/10/14)
-This Project will move to a new repository under a new name very soon! I have been working behind the doors and am making some massive changes by the time I release the next version the script will be much more advanced and better with multiple features, but this will take longer the "weekly" releases. Next release is supposed to be big and possibly the first official 1.0 release.
+This Project will move to a new repository under a new name very soon! I have been working behind the doors and am making some massive changes by the time I release the next version the script will be much more advanced and better with multiple features, but this will take longer than the initially planned "weekly" releases. Next release is supposed to be big and possibly the first official 1.0 release.
 Some Features Confirmed to be added are:
 - Auto Fetch Updates for script
 - Option to enable/disable FOSS/Non-FOSS Repositories
