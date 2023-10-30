@@ -48,7 +48,13 @@ python .\smpkg.py
 |Android Support | ×××××××××10 |
 |Separate FOSS and "Non-Free" repositories | ××××××××10 |
 |Handle updates for all apps in repository| ××××××7••• |
-|GitHub.io Webpage|×××××6••••|
+|GitHub.io Webpage|×××××××8••|
+|New Logo| ×××××××××10|
+|Handle Settings in different files|×××××××××10|
+|Custom Config for each app|×××××××××10|
+|Dedicated TUI| ×××4••••••|
+|Multiplatform single script| ×××××××××10|
+|Direct Console Commands|×2••••••••|
 
 ## Latest Build Status
 |Smpkg Version| 0.3.1 |
