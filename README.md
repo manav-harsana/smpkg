@@ -1,8 +1,8 @@
-# Smpkg, Duel Platform Package Manager
+# A Duel Platform Package Manager
 ![Image was supposed to be here](https://github.com/manav-harsana/smpkg/blob/main/config/images/banner.png?raw=true)
 
-# Future of this project (2023/10/14)
-This Project will move to a new repository under a new name very soon! I have been working behind the doors and am making some massive changes by the time I release the next version the script will be much more advanced and better with multiple features, but this will take longer than the initially planned "weekly" releases. Next release is supposed to be big and possibly the first official 1.0 release.
+# This repository is shifting soon!
+This Project will move to a new repository under a new name very soon! I have been working behind the doors and am making some massive changes so by the time I release the next version the script will be much more advanced and better with multiple features, but this will take longer than the initially planned "weekly" releases. Next release is supposed to be big and possibly the first official 1.0 release.
 Some Features Confirmed to be added are:
 - Auto Fetch Updates for script
 - Option to enable/disable FOSS/Non-FOSS Repositories
@@ -15,11 +15,11 @@ Some Features Confirmed to be added are:
 - Android Support
 - And more!
 
-## What Is Smpkg?
-smpkg is a script entirely written in python which provides a GNU/Linux Package manager like functionality to Android and Windows. Current builds are in very early stages and only support Windows packages.
+## What
+this is a script entirely written in python which provides a GNU/Linux Package manager like functionality to Android and Windows. Current builds are in very early stages and only support Windows packages.
 
-## Why Smpkg?
-Smpkg directly fetches downloads for the desired app present in the repository eliminating searching for apps on the web.
+## Why
+the script directly fetches downloads for the desired app present in the repository eliminating searching for apps on the web.
 
 ## Installation
 The package is portable but a few dependencies are required:
@@ -40,7 +40,7 @@ cd smpkg
 python .\smpkg.py
 ```
 
-## To-do (WIP)
+## Progress and To-do (last updated: 10 October, 2023)
 
 | Features | Progress|
 |-------------|------------|
