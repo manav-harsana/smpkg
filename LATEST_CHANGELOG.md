@@ -1,0 +1,2 @@
+- Updated all apps to latest version as of 31st October, 2023
+- Optimsed Code
