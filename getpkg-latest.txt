@@ -1,0 +1,4 @@
+## DO NOT EDIT
+getpkg.codename=Amandine
+getpkg.releasecode=1
+getpkg.version=1.0
