@@ -130,68 +130,72 @@ elif getpkg_r<getpkg_latest_r:
                 print('Changelog:')
                 for i in data:
                     print(i)
-            response=requests.get('https://raw.githubusercontent.com/manav-harsana/smpkg/main/https://github.com/manav-harsana/smpkg/blob/main/Latest_foss_win_versions.txt',stream=True)
+            response=requests.get('https://raw.githubusercontent.com/manav-harsana/smpkg/main/Latest_foss_win_versions.txt',stream=True)
             total_size_in_bytes=int(response.headers.get('content-length',0))
             block_size=1024
             with open('Latest_foss_win_versions.txt',mode='wb') as file:
                 for data in response.iter_content(block_size):
                     file.write(data)
-            response=requests.get('https://raw.githubusercontent.com/manav-harsana/smpkg/main/https://github.com/manav-harsana/smpkg/blob/main/Latest_foss_win.txt',stream=True)
+            response=requests.get('https://raw.githubusercontent.com/manav-harsana/smpkg/main/Latest_foss_win.txt',stream=True)
             total_size_in_bytes=int(response.headers.get('content-length',0))
             block_size=1024
             with open('Latest_foss_win.txt',mode='wb') as file:
                 for data in response.iter_content(block_size):
                     file.write(data)
-            response=requests.get('https://raw.githubusercontent.com/manav-harsana/smpkg/main/https://github.com/manav-harsana/smpkg/blob/main/Latest_foss_andy.txt',stream=True)
+            response=requests.get('https://raw.githubusercontent.com/manav-harsana/smpkg/main/Latest_foss_andy.txt',stream=True)
             total_size_in_bytes=int(response.headers.get('content-length',0))
             block_size=1024
             with open('Latest_foss_andy.txt',mode='wb') as file:
                 for data in response.iter_content(block_size):
                     file.write(data)
-            response=requests.get('https://raw.githubusercontent.com/manav-harsana/smpkg/main/https://github.com/manav-harsana/smpkg/blob/main/Latest_foss_andy_versions.txt',stream=True)
+            response=requests.get('https://raw.githubusercontent.com/manav-harsana/smpkg/main/Latest_foss_andy_versions.txt',stream=True)
             total_size_in_bytes=int(response.headers.get('content-length',0))
             block_size=1024
             with open('Latest_foss_andy_versions.txt',mode='wb') as file:
                 for data in response.iter_content(block_size):
                     file.write(data)
-            response=requests.get('https://raw.githubusercontent.com/manav-harsana/smpkg/main/https://github.com/manav-harsana/smpkg/blob/main/Latest_nonfoss_win_versions.txt',stream=True)
+            response=requests.get('https://raw.githubusercontent.com/manav-harsana/smpkg/main/Latest_nonfoss_win_versions.txt',stream=True)
             total_size_in_bytes=int(response.headers.get('content-length',0))
             block_size=1024
             with open('Latest_foss_nonwin_versions.txt',mode='wb') as file:
                 for data in response.iter_content(block_size):
                     file.write(data)
-            response=requests.get('https://raw.githubusercontent.com/manav-harsana/smpkg/main/https://github.com/manav-harsana/smpkg/blob/main/Latest_nonfoss_win.txt',stream=True)
+            response=requests.get('https://raw.githubusercontent.com/manav-harsana/smpkg/main/Latest_nonfoss_win.txt',stream=True)
             total_size_in_bytes=int(response.headers.get('content-length',0))
             block_size=1024
             with open('Latest_nonfoss_win.txt',mode='wb') as file:
                 for data in response.iter_content(block_size):
                     file.write(data)
-            response=requests.get('https://raw.githubusercontent.com/manav-harsana/smpkg/main/https://github.com/manav-harsana/smpkg/blob/main/Latest_nonfoss_andy.txt',stream=True)
+            response=requests.get('https://raw.githubusercontent.com/manav-harsana/smpkg/main/Latest_nonfoss_andy.txt',stream=True)
             total_size_in_bytes=int(response.headers.get('content-length',0))
             block_size=1024
             with open('Latest_nonfoss_andy.txt',mode='wb') as file:
                 for data in response.iter_content(block_size):
                     file.write(data)
-            response=requests.get('https://raw.githubusercontent.com/manav-harsana/smpkg/main/https://github.com/manav-harsana/smpkg/blob/main/Latest_nonfoss_andy_versions.txt',stream=True)
+            response=requests.get('https://raw.githubusercontent.com/manav-harsana/smpkg/main/Latest_nonfoss_andy_versions.txt',stream=True)
             total_size_in_bytes=int(response.headers.get('content-length',0))
             block_size=1024
             with open('Latest_nonfoss_andy_versions.txt',mode='wb') as file:
                 for data in response.iter_content(block_size):
                     file.write(data)
-            response=requests.get('https://raw.githubusercontent.com/manav-harsana/smpkg/main/https://github.com/manav-harsana/smpkg/blob/main/getpkg_env_latest.txt',stream=True)
+            os.chdir('..')
+            response=requests.get('https://raw.githubusercontent.com/manav-harsana/smpkg/main/getpkg_env_latest.txt',stream=True)
             total_size_in_bytes=int(response.headers.get('content-length',0))
             block_size=1024
             with open('getpkg_env_latest.txt',mode='wb') as file:
                 for data in response.iter_content(block_size):
                     file.write(data)
-            if os_current=='windows':
-                with open('getpkg_env_latest.txt','r') as firstfile, open('..\getpkg-env.py','a') as secondfile:
-                    for line in firstfile:
-                        secondfile.write(line)
-            else:
-                with open('getpkg_env_latest.txt','r') as firstfile, open('../getpkg-env.py','a') as secondfile:
-                    for line in firstfile:
-                        secondfile.write(line)
+            shutil.copyfile('getpkg_env_latest.txt','getpkg-env.py')
+            shutil.rmtree('getpkg_env_latest.txt')
+            os.chdir('tmp')
+            with open('Latest_foss_win.txt') as file:
+                content=file.readlines()
+                os.chdir('..')
+                os.chdir('repo')
+                os.chdir('win_foss')
+                for line in 'Latest_foss_win.txt':
+                    downloadurl='https://raw.githubusercontent.com/manav-harsana/getpkg/main/'+line
+                    print(downloadurl)
         ## COMPLETE FROM HERE
     if inp=='n' or inp=='no':
         print('Skipping Update...')
@@ -408,4 +412,3 @@ while startuptxt==startuptxt:
     if cmd=='os -set windows':
         os_current='windows'
         print('Switched Current OS to Windows')
-## UPDATES ARE WORKINNGGG
