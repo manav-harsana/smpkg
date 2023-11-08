@@ -1,1 +1,410 @@
-
+#-#-# GetPkg Package Repository, the official contination of the Smpkg package management repository. Completely redone and built from scratch and written 100% in python.
+#-#-# About: GetPkg is a multiplatform (currently for Windows and Android) package management utility script which aims to add GNU/Linux Package Manager functionality to all
+#-#-# License: GNU General Public License 3.0+
+#(1) Import All Plugins
+import os, sys, shutil, requests, subprocess # Import all plugins
+from termcolor import colored, cprint # Termcolor is being used for fancy coloring of texts and animations here and there
+from urllib.request import urlretrieve # Requests is being used to download the packages from the urls
+from subprocess import Popen, PIPE # Subprocess is being used to execute the installers
+from tqdm import tqdm # Tqdm is being used to Indicate Download Progress
+#(2) Defining Variables and Lists
+andy_f_repo=[] ## The FOSS Android Package Repository list
+andy_nf_repo=[] ## The Non-Foss Android Package Repository list
+win_f_repo=[] ## The Foss Windows Package Repository list
+win_nf_repo=[] ## The Non-Foss Windows Package Repository list
+current_repo=[] ## The In-Use Repository list [FOSS+Non-FOSS]
+current_f_repo=[] ## The In-Use Repository list [FOSS Only]
+getpkg_codename='Almadine'
+getpkg_v='1.0 Stable'
+getpkg_r=0.1
+#(3) Define Variables for Package Details
+arch='app.arch=' ### Define Architecture the package is built from common choices are: Aarch64, Arm, Arm64, Amd64, x86_64) and x86
+bdate='app.bdate=' ### The Build date of the app or the release date so that the user can know when this version came out.
+desc='app.desc=' ### The Description of the app to be displayed while fetching info for it during installation
+name='app.name=' ### The Name of the App!
+path='app.path=' ### The Default Path where the app is usually installed, this can later be used to directly uninstall the app using the script itself
+rel='app.rel=' ### The Release Type of the app common ones are: Stable, Beta, Alpha, Release, LTS etc...
+repo='app.barrel=' ### Repositories are named as 'barrels' in getpkg because why not?. This Defines in which category out of FOSS and Non-FOSS does the package fall into
+req='app.req=' ### The Requirements of the Pkg. Example: 
+setup='app.setup=' ### The name of the setup file of the package
+size='app.size=' ### The Setup download size
+url='app.url=' ### The download Url
+version='app.version=' ### The version of the app provided for download
+#(4) Recall Settings from Files
+os.chdir('settings')
+with open('barrels.cfg','r',encoding='utf-8') as file:
+    data=file.readlines()
+    f_en=data[1]
+    nf_en=data[2]
+with open('os.cfg','r',encoding='utf-8') as file:
+    data=file.readlines()
+    an_en=data[3]
+    an_en=an_en.replace('\n','')
+    w_en=data[4]
+    w_en=w_en.replace('\n','')
+    os_def=data[2]
+    os_def=os_def.replace('\n','')
+    if os_def=='set.os.default=windows':
+        os_current='windows'
+    elif os_def=='set.os.default=android':
+        os_current='android'
+os.chdir('..')
+#(5) Create List of packages from directory
+os.chdir('repo')
+for cfg in os.listdir('andy_foss'):
+    cfg=cfg.replace('.cfg','')
+    andy_f_repo.append(cfg)
+for cfg in os.listdir('andy_non-foss'):
+    cfg=cfg.replace('.cfg','')
+    andy_nf_repo.append(cfg)
+for cfg in os.listdir('win_foss'):
+    cfg=cfg.replace('.gpkg','')
+    win_f_repo.append(cfg)
+for cfg in os.listdir('win_non-foss'):
+    cfg=cfg.replace('.gpkg','')
+    win_nf_repo.append(cfg)
+os.chdir('..')
+#(6) Create List of Enabled Package Repositories
+if os_current=='windows':
+    if f_en=='use.foss.barrel=1\n':
+        for i in win_f_repo:
+            current_f_repo.append(i)
+            current_repo.append(i)
+    if nf_en=='use.non-foss.barrel=1\n':
+        for i in win_nf_repo:
+            current_repo.append(i)
+elif os_current=='android':
+    if f_en=='use.foss.barrel=1\n':
+        for i in andy_f_repo:
+            current_f_repo.append(i)
+            current_repo.append(i)
+    if nf_en=='use.non-foss.barrel=1\n':
+        for i in andy_nf_repo:
+            current_repo.append(i)
+#(7) Startup Text
+startuptxt=colored("\033[1mGetPkg Package Manager \nVersion: 1.0 Stable \nType 'help' to list all commands\033",'green')
+print(startuptxt)
+#(8) Manage Temperary Folder (tmp)
+try: # Try to run the below command
+    os.mkdir('tmp') # Create 'tmp' folder
+except OSError as error: # If error (tmp folder is already present) is encountered run the command below
+    print(colored('\033[1mWARNING:\033','yellow',attrs=['bold','blink']),"The 'tmp' folder already exists from a previous session\n it probably has old data, consider properly exiting the program\nby typing 'exit' or remove the folder manually and restart")
+#(9) Manage Updates for script
+print('Checking for updates...')
+os.chdir('tmp')
+response=requests.get('https://raw.githubusercontent.com/manav-harsana/smpkg/main/getpkg-latest.txt', stream=True)
+total_size_in_bytes= int(response.headers.get('content-length',0))
+block_size=1024
+with open('getpkg-latest.txt', mode='wb') as file:
+    for data in response.iter_content(block_size):
+        file.write(data)
+with open('getpkg-latest.txt','r',encoding='utf-8') as file:
+    data=file.readlines()
+    getpkg_latest_codename=data[1]
+    getpkg_latest_codename=getpkg_latest_codename.replace('getpkg.codename=','')
+    getpkg_latest_r=data[2]
+    getpkg_latest_r=getpkg_latest_r.replace('getpkg.releasecode=','')
+    getpkg_latest_r=float(getpkg_latest_r)
+    getpkg_latest_v=data[3]
+    getpkg_latest_v=getpkg_latest_v.replace('getpkg.version=','')
+if getpkg_r==getpkg_latest_r:
+    print('GetPkg is Up To Date!')
+elif getpkg_r<getpkg_latest_r:
+    print('New Update Available!')
+    print('Current Version:',getpkg_v,'\nLatest Version:',getpkg_latest_v,'Latest Codename:',getpkg_latest_codename.replace('\n',''))
+    inp=input('Do you want to proceed to install the update? [Yes/No]')
+    inp=inp.lower()
+    if inp=='y' or inp=='yes':
+        inp=input('Do you want to view the changelog? [Yes/No]')
+        inp=inp.lower()
+        if inp=='y' or inp=='yes':
+            response=requests.get('https://raw.githubusercontent.com/manav-harsana/smpkg/main/LATEST_CHANGELOG.md',stream=True)
+            total_size_in_bytes=int(response.headers.get('content-length',0))
+            block_size=1024
+            with open('LATEST_CHANGELOG.md',mode='wb') as file:
+                for data in response.iter_content(block_size):
+                    file.write(data)
+            with open('LATEST_CHANGELOG.md','r',encoding='utf-8') as file:
+                data=file.read()
+                data=data.split('\n')
+                print('Changelog:')
+                for i in data:
+                    print(i)
+            response=requests.get('https://raw.githubusercontent.com/manav-harsana/smpkg/main/https://github.com/manav-harsana/smpkg/blob/main/Latest_foss_win_versions.txt',stream=True)
+            total_size_in_bytes=int(response.headers.get('content-length',0))
+            block_size=1024
+            with open('Latest_foss_win_versions.txt',mode='wb') as file:
+                for data in response.iter_content(block_size):
+                    file.write(data)
+            response=requests.get('https://raw.githubusercontent.com/manav-harsana/smpkg/main/https://github.com/manav-harsana/smpkg/blob/main/Latest_foss_win.txt',stream=True)
+            total_size_in_bytes=int(response.headers.get('content-length',0))
+            block_size=1024
+            with open('Latest_foss_win.txt',mode='wb') as file:
+                for data in response.iter_content(block_size):
+                    file.write(data)
+            response=requests.get('https://raw.githubusercontent.com/manav-harsana/smpkg/main/https://github.com/manav-harsana/smpkg/blob/main/Latest_foss_andy.txt',stream=True)
+            total_size_in_bytes=int(response.headers.get('content-length',0))
+            block_size=1024
+            with open('Latest_foss_andy.txt',mode='wb') as file:
+                for data in response.iter_content(block_size):
+                    file.write(data)
+            response=requests.get('https://raw.githubusercontent.com/manav-harsana/smpkg/main/https://github.com/manav-harsana/smpkg/blob/main/Latest_foss_andy_versions.txt',stream=True)
+            total_size_in_bytes=int(response.headers.get('content-length',0))
+            block_size=1024
+            with open('Latest_foss_andy_versions.txt',mode='wb') as file:
+                for data in response.iter_content(block_size):
+                    file.write(data)
+            response=requests.get('https://raw.githubusercontent.com/manav-harsana/smpkg/main/https://github.com/manav-harsana/smpkg/blob/main/Latest_nonfoss_win_versions.txt',stream=True)
+            total_size_in_bytes=int(response.headers.get('content-length',0))
+            block_size=1024
+            with open('Latest_foss_nonwin_versions.txt',mode='wb') as file:
+                for data in response.iter_content(block_size):
+                    file.write(data)
+            response=requests.get('https://raw.githubusercontent.com/manav-harsana/smpkg/main/https://github.com/manav-harsana/smpkg/blob/main/Latest_nonfoss_win.txt',stream=True)
+            total_size_in_bytes=int(response.headers.get('content-length',0))
+            block_size=1024
+            with open('Latest_nonfoss_win.txt',mode='wb') as file:
+                for data in response.iter_content(block_size):
+                    file.write(data)
+            response=requests.get('https://raw.githubusercontent.com/manav-harsana/smpkg/main/https://github.com/manav-harsana/smpkg/blob/main/Latest_nonfoss_andy.txt',stream=True)
+            total_size_in_bytes=int(response.headers.get('content-length',0))
+            block_size=1024
+            with open('Latest_nonfoss_andy.txt',mode='wb') as file:
+                for data in response.iter_content(block_size):
+                    file.write(data)
+            response=requests.get('https://raw.githubusercontent.com/manav-harsana/smpkg/main/https://github.com/manav-harsana/smpkg/blob/main/Latest_nonfoss_andy_versions.txt',stream=True)
+            total_size_in_bytes=int(response.headers.get('content-length',0))
+            block_size=1024
+            with open('Latest_nonfoss_andy_versions.txt',mode='wb') as file:
+                for data in response.iter_content(block_size):
+                    file.write(data)
+            response=requests.get('https://raw.githubusercontent.com/manav-harsana/smpkg/main/https://github.com/manav-harsana/smpkg/blob/main/getpkg_env_latest.txt',stream=True)
+            total_size_in_bytes=int(response.headers.get('content-length',0))
+            block_size=1024
+            with open('getpkg_env_latest.txt',mode='wb') as file:
+                for data in response.iter_content(block_size):
+                    file.write(data)
+            if os_current=='windows':
+                with open('getpkg_env_latest.txt','r') as firstfile, open('..\getpkg-env.py','a') as secondfile:
+                    for line in firstfile:
+                        secondfile.write(line)
+            else:
+                with open('getpkg_env_latest.txt','r') as firstfile, open('../getpkg-env.py','a') as secondfile:
+                    for line in firstfile:
+                        secondfile.write(line)
+        ## COMPLETE FROM HERE
+    if inp=='n' or inp=='no':
+        print('Skipping Update...')
+else:
+    print('Your Current Updates File seems to be broken or has incorrect values, please consider redownloading GetPkg or fixing the file values manually')
+os.chdir('..')
+#(10) Enter Infinite CommandLine Loop
+while startuptxt==startuptxt:
+    cmd=input(colored('\033[1m> \033','green'))
+    if cmd=='help': # (10.1) If User types the 'help' Command
+        print('Version:',getpkg_v,'\nCodeName:',getpkg_codename)
+        if os_def=='set.os.default=windows\n':
+            print('Default OS: Windows')
+        else:
+            print('Default OS: Android')
+        if f_en=='use.foss.barrel=1\n':
+            print('FOSS Barrel: Enabled')
+        else:
+            print('FOSS Barrel: Disabled')
+        if nf_en=='use.non-foss.barrel=1\n':
+            print('Non-FOSS Barrel: Enabled')
+        else:
+            print('Non-FOSS Barrel: Disabled')
+        print('Commands:\nhelp: Displays all the required information to get started and use the script\nlist: Displays List of packages in user defined barrels(repositories)\ninstall: Installs the desired package asked by the user\nfind: Finds keyword in all repositories and lists all the packages which contain that keyword')
+    if cmd=='find': # (10.2) If User types the 'find' Command
+        pkg=input('Find a package: ')
+        for i in current_repo:
+            if pkg in i:
+                print('Packages found with',pkg,':\n',i)
+            else:
+                print('Could not find a package with',pkg,'in it')
+    if cmd=='list': # (10.3) If User types the 'list' Command
+        inp=input('Which one of the following barrels do you want to list?\n1. Currently in use\n2. FOSS Only\n3. Non-FOSS Only\n4. Android Only\n5. Windows Only\n6. Android FOSS Only\n7. Windows FOSS Only\n8. Android Non-FOSS Only\n9. Windows Non-FOSS Only\nSelection [Enter the corresponding number]: ')
+        if inp=='1':
+            print('Listing All Packages in Enabled Barrels:\n',current_repo)
+        elif inp=='2':
+            print('Listing All FOSS Packages\nAndroid:\n',andy_f_repo,'\nWindows:\n',win_f_repo)
+        elif inp=='3':
+            print('Listing All Non-FOSS Packages\nAndroid:\n',andy_nf_repo,'\nWindows:\n',win_nf_repo)
+        elif inp=='4':
+            print('Listing All Android Packages\nFOSS:\n',andy_f_repo,'\nNon-FOSS:\n',andy_nf_repo)
+        elif inp=='5':
+            print('Listing All Windows Packages\nFOSS:\n',win_f_repo,'\nNon-FOSS:\n',win_nf_repo)
+        elif inp=='6':
+            print('Listing All Android FOSS Packages:\n',andy_f_repo)
+        elif inp=='7':
+            print('Listing All Windows FOSS Packages:\n',win_f_repo)
+        elif inp=='8':
+            print('Listing All Android Non-FOSS Packages:\n',andy_nf_repo)
+        elif inp=='9':
+            print('Listing All Windows Non-FOSS Packages:\n',win_nf_repo)
+        else:
+            print('Invalid Input')
+    if cmd=='install': # (10.4) If User types the 'install' Command
+        os.chdir('repo')
+        pkg=input('Enter Package to Install: ')
+        if pkg in current_repo:
+            if pkg in current_f_repo:
+                if os_current=='windows':
+                    os.chdir('win_foss')
+                else:
+                    os.chdir('andy_foss')
+            else:
+                if os_current=='windows':
+                    os.chdir('win_non-foss')
+                else:
+                    os.chdir('andy_non-foss')
+        else:
+            print('Package not found in Barrel')
+        confirm=input('Do you want to proceed with Installation? [Yes/No]')
+        confirm=confirm.lower()
+        if confirm=='y' or confirm=='yes':
+            pkg=pkg+'.gpkg'
+            print('Obtaining Info...')
+            with open(pkg,'r') as file:
+                info=file.readlines()
+                for info in lines:
+                    if line.find(arch)!=-1:
+                        pkg_ar=line.replace('app.arch=','')
+                        pkg_ar=pkg_ar.replace('\n','')
+                    if line.find(bdate)!=-1:
+                        pkg_bd=line.replace('app.bdate=','')
+                        pkg_bd=pkg_bd.repalce('\n','')
+                    if line.find(desc)!=-1:
+                        pkg_de=line.replace('app.desc=','')
+                        pkg_de=pkg_de.replace('\n','')
+                    if line.find(name)!=-1:
+                        pkg_na=line.replace('app.name=','')
+                        pkg_na=pkg_na.replace('\n','')
+                    if line.find(path)!=-1:
+                        pkg_pa=line.replace('app.path=','')
+                        pkg_pa=pkg_pa.replace('\n','')
+                    if line.find(rel)!=-1:
+                        pkg_re=line.replace('app.rel=','')
+                        pkg_re=pkg_re.replace('\n','')
+                    if line.find(repo)!=-1:
+                        pkg_rp=line.replace('app.barrel=','')
+                        pkg_rp=pkg_rp.replace('\n','')
+                    if line.find(req)!=-1:
+                        pkg_rq=line.replace('app.rq=','')
+                        pkg_rq=pkg_rq.replace('\n','')
+                    if line.find(setup)!=-1:
+                        pkg_se=line.replace('app.setup=','')
+                        pkg_se=pkg_se.replace('\n','')
+                    if line.find(size)!=-1:
+                        pkg_si=line.replace('app.size=','')
+                        pkg_si=pkg_si.replace('\n','')
+                    if line.find(url)!=-1:
+                        pkg_ur=line.replace('app.url=','')
+                        pkg_ur=pkg_ur.replace('\n','')
+                    if line.find(version)!=-1:
+                        pkg_ve=line.replace('app.version=','')
+                        pkg_ve=pkg_ve.replace('\n','')
+                    os.chdir('..')
+                    os.chdir('..')
+                    print('Downloading:',pkg_na)
+                    print('Arch:',pkg_ar)
+                    print('Barrel:',pkg_rp)
+                    print('Description:',pkg_de)
+                    print('Release Date:',pkg_bd)
+                    print('Release Type:',pkg_re)
+                    print('Requires:',pkg_rq)
+                    print('Size:',pkg_si)
+                    print('Version:',pkg_ve)
+                    os.chdir('tmp')
+                    response=requests.get(url,stream=True)
+                    total_size_in_bytes=int(response.headers.get('content-length',0))
+                    block_size=1024
+                    progress_bar=tqdm(total=total_size_in_bytes,unit='iB',unit_scale=True)
+                    with open(setup,mode='wb') as file:
+                        for data in response.iter_content(block_size):
+                            progress_bar.update(len(data))
+                            file.write(data)
+                    progress_bar.close()
+                    print('Package Downloaded...')
+                    print('Installer is running...')
+                    os.system(setup)
+                    print('Installer has been closed.')
+                    os.chdir('..')
+        elif confirm=='no' or confirm=='n':
+            print('Installation Aborted by User')
+        else:
+            print('Invalid Input')
+    if cmd=='exit': # (10.) If User types the 'exit' Command
+        cnfrmext=input("Are you sure you want to exit? the tmp folder will be cleared [Yes/No]") ## confirm exit
+        cnfrmext=cnfrmext.lower()
+        if cnfrmext=='yes' or cnfrmext=='y': ## is yes?
+            shutil.rmtree('tmp') ## remove tmp folder and files
+            break ## break the loop
+    # (11) Manage Settings
+    if cmd=='barrel -e non-foss':
+        os.chdir('settings')
+        with open('barrels.cfg','r',encoding='utf-8') as file:
+            lines=file.readlines()
+        lines[2]='use.non-foss.barrel=1'
+        nf_en=lines[2]
+        with open('barrels.cfg','w',encoding='utf-8') as file:
+            file.writelines(lines)
+        os.chdir('..')
+        print('Non-FOSS Barrel Enabled')
+    if cmd=='barrel -d non-foss':
+        os.chdir('settings')
+        with open('barrels.cfg','r',encoding='utf-8') as file:
+            lines=file.readlines()
+        lines[2]='use.non-foss.barrel=0'
+        nf_en=lines[2]
+        with open('barrels.cfg','w',encoding='utf-8') as file:
+            file.writelines(lines)
+            print('Non-FOSS Barrel Disabled')
+        os.chdir('..')
+    if cmd=='barrel -e foss':
+        os.chdir('settings')
+        with open('barrels.cfg','r',encoding='utf-8') as file:
+            lines=file.readlines()
+        lines[1]='use.foss.barrel=1\n'
+        f_en=lines[1]
+        with open('barrels.cfg','w',encoding='utf-8') as file:
+            print('Foss Barrel Enabled')
+            file.writelines(lines)
+        os.chdir('..')
+    if cmd=='barrel -d foss':
+        os.chdir('settings')
+        with open('barrels.cfg','r',encoding='utf-8') as file:
+            lines=file.readlines()
+        lines[1]='use.foss.barrel=0\n'
+        f_en=lines[1]
+        with open('barrels.cfg','w',encoding='utf-8') as file:
+            file.writelines(lines)
+            print('Foss Barrel Disabled')
+        os.chdir('..')
+    if cmd=='os -def windows':
+        os.chdir('settings')
+        with open('os.cfg','r',encoding='utf-8') as file:
+            lines=file.readlines()
+        lines[2]='set.os.default=windows\n'
+        os_def=lines[2]
+        with open('os.cfg','w',encoding='utf-8') as file:
+            file.writelines(lines)
+            print('Default OS Set to Windows')
+        os.chdir('..')
+    if cmd=='os -def android':
+        os.chdir('settings')
+        with open('os.cfg','r',encoding='utf-8') as file:
+            lines=file.readlines()
+        lines[2]='set.os.default=android\n'
+        os_def=lines[2]
+        with open('os.cfg','w',encoding='utf-8') as file:
+            file.writelines(lines)
+            print('Default OS Set to Android')
+        os.chdir('..')
+    if cmd=='os -set android':
+        os_current='android'
+        print('Switched Current OS to Android')
+    if cmd=='os -set windows':
+        os_current='windows'
+        print('Switched Current OS to Windows')
