@@ -408,3 +408,4 @@ while startuptxt==startuptxt:
     if cmd=='os -set windows':
         os_current='windows'
         print('Switched Current OS to Windows')
+## UPDATES ARE WORKINNGGG
