@@ -1,1 +1,2 @@
-
+alacritty.gpkg
+lolcat.gpkg
