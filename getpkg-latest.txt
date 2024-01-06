@@ -2,3 +2,4 @@
 getpkg.codename=Amandine
 getpkg.releasecode=1
 getpkg.version=1.0
+getpkg.channel=Stable
