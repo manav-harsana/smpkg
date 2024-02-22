@@ -7,13 +7,13 @@ Some Features Confirmed to be added are:
 - Auto Fetch Updates for script
 - Option to enable/disable FOSS/Non-FOSS Repositories
 - Smaller commands
-- Custom scripts for each app (This means that now even more different kinds of packages can be published)
-- A New name!
-- A New logo!
+- Option to add/create custom repositories
+- A dedicated Configuration Scheme
+- Enabling Custom Script based installation for each package hence a wider range of software support.
 - Better Optimised codebase
 - Many Many more apps/packages in the repositories
 - Android Support
-- And more!
+- Switch between Android/Windows mode
 
 ## What
 this is a script entirely written in python which provides a GNU/Linux Package manager like functionality to Android and Windows. Current builds are in very early stages and only support Windows packages.
@@ -40,19 +40,20 @@ cd smpkg
 python .\smpkg.py
 ```
 
-## Progress and To-do (last updated: 10 October, 2023)
+## Progress and To-do [Release 1.0] (last updated: 21st February, 2024)
 
 | Features | Progress|
 |-------------|------------|
 |Automatically fetch repository and smpkg update and notify user |  ×××××××××10 |
 |Android Support | ×××××××××10 |
+|Online Repositories|×××××××××10|
 |Separate FOSS and "Non-Free" repositories | ××××××××10 |
-|Handle updates for all apps in repository| ××××××7••• |
-|GitHub.io Webpage|×××××××8••|
+|Handle updates for all apps in repository| ××××××××9• |
+|GitHub.io Webpage|××××××××9•|
 |New Logo| ×××××××××10|
 |Handle Settings in different files|×××××××××10|
 |Custom Config for each app|×××××××××10|
-|Dedicated TUI| ×××4••••••|
+|Dedicated TUI| ××××5••••|
 |Multiplatform single script| ×××××××××10|
 |Direct Console Commands|×2••••••••|
 
